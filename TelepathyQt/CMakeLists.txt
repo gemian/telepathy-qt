@@ -101,6 +101,7 @@ set(telepathy_qt_SRCS
     pending-handles.cpp
     pending-operation.cpp
     pending-ready.cpp
+    pending-rooms.cpp
     pending-send-message.cpp
     pending-string.cpp
     pending-string-list.cpp
@@ -121,6 +122,7 @@ set(telepathy_qt_SRCS
     request-temporary-handler-internal.h
     room.cpp
     room-list-channel.cpp
+    room-manager.cpp
     server-authentication-channel.cpp
     simple-call-observer.cpp
     simple-observer.cpp
@@ -418,6 +420,8 @@ set(telepathy_qt_HEADERS
     pending-operation.h
     PendingReady
     pending-ready.h
+    PendingRoom
+    pending-rooms.h
     PendingSendMessage
     pending-send-message.h
     PendingStreamedMediaStreams
@@ -471,6 +475,8 @@ set(telepathy_qt_HEADERS
     room.h
     RoomListChannel
     room-list-channel.h
+    RoomManager
+    room-manager.h
     ServerAuthenticationChannel
     server-authentication-channel.h
     SharedPtr
@@ -593,6 +599,7 @@ set(telepathy_qt_MOC_SRCS
     pending-handles.h
     pending-operation.h
     pending-ready.h
+    pending-rooms.h
     pending-send-message.h
     pending-stream-tube-connection.h
     pending-string.h
@@ -604,6 +611,8 @@ set(telepathy_qt_MOC_SRCS
     request-temporary-handler-internal.h
     room.h
     room-list-channel.h
+    room-manager.h
+#    room-manager-internal.h
     server-authentication-channel.h
     simple-call-observer.h
     simple-pending-operations.h

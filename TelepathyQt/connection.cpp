@@ -36,6 +36,7 @@
 #include <TelepathyQt/ConnectionCapabilities>
 #include <TelepathyQt/ContactFactory>
 #include <TelepathyQt/ContactManager>
+#include <TelepathyQt/RoomManager>
 #include <TelepathyQt/PendingChannel>
 #include <TelepathyQt/PendingContactAttributes>
 #include <TelepathyQt/PendingContacts>
