@@ -1,0 +1,182 @@
+Source: telepathy-qt
+Section: libs
+Priority: optional
+Maintainer: Adam Boardman <adamboardman@gmail.com>
+XSBC-Original-Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
+Build-Depends: debhelper (>= 9),
+               dpkg-dev (>= 1.16.1~),
+               pkg-kde-tools (>= 0.12),
+               cmake,
+               dbus,
+               doxygen,
+               graphviz,
+               libssl1.0.2,
+               libgstreamer1.0-dev,
+               libgstreamer-plugins-base1.0-dev,
+               libqt4-dev (>= 4.6.0),
+               qtbase5-dev (>= 5.0),
+               libfarstream-0.2-dev (>= 0.2.3),
+               libtelepathy-farstream-dev (>= 0.6.0),
+               libtelepathy-glib-dev (>= 0.20.1),
+               pkg-config,
+               python (>= 2.6),
+               python-dev,
+               qttools5-dev,
+               qt4-dev-tools,
+               qt4-doc-html,
+# * python-dbus and python-gobject can safely be removed if you don't care
+#   about running the regression tests
+               python-dbus,
+               libxml2-utils,
+# * doxygen and graphviz should be Build-Depends-Indep if #478524 is fixed
+Standards-Version: 3.9.6
+Vcs-Git: https://github.com/gemian/telepathy-qt.git
+Vcs-Browser: https://github.com/gemian/telepathy-qt
+Homepage: http://telepathy.freedesktop.org/
+
+Package: libtelepathy-qt4-2
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Telepathy framework - Qt 4 library
+ This package contains telepathy-qt4, a Qt-based library for Telepathy
+ components.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt4-farstream2
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libtelepathy-qt4-2 (= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: Telepathy/Farsight integration - Qt 4 library
+ telepathy-qt4-farstream provides telepathy-qt4 integration with
+ telepathy-farstream, which implements media streaming using GStreamer and
+ Farsight.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt4-dev
+Architecture: any
+Section: libdevel
+Depends: libqt4-dev (>= 4.6.0),
+         libtelepathy-qt4-2 (= ${binary:Version}),
+         libtelepathy-qt4-farstream2 (= ${binary:Version}),
+         libtelepathy-farstream-dev,
+         pkg-config (>= 0.21),
+         ${misc:Depends}
+Suggests: libtelepathy-qt4-doc
+Description: Qt 4 Telepathy library (headers and static library)
+ This package contains development files for telepathy-qt4, a Qt-based
+ library for Telepathy components.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt4-dbg
+Architecture: any
+Multi-Arch: same
+Section: debug
+Priority: extra
+Depends: libtelepathy-qt4-2 (= ${binary:Version}),
+         ${misc:Depends}
+Suggests: libtelepathy-qt4-farstream2 (= ${binary:Version})
+Description: Qt 4 Telepathy library (debug symbols)
+ This package contains support for debugging programs that use telepathy-qt4,
+ a Qt-based library for Telepathy components.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt4-doc
+Architecture: all
+Section: doc
+Depends: libjs-jquery, ${misc:Depends}
+Description: Qt 4 Telepathy library (documentation)
+ This package contains HTML documentation for telepathy-qt4, a Qt-based
+ library for Telepathy components.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt5-0
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Telepathy framework - Qt 5 library
+ This package contains telepathy-qt5, a Qt-based library for Telepathy
+ components.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt5-farstream0
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libtelepathy-qt5-0 (= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: Telepathy/Farsight integration - Qt 5 library
+ telepathy-qt5-farstream provides telepathy-qt5 integration with
+ telepathy-farstream, which implements media streaming using GStreamer and
+ Farsight.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt5-dev
+Architecture: any
+Section: libdevel
+Depends: qtbase5-dev (>= 5.0.0),
+         libtelepathy-qt5-0 (= ${binary:Version}),
+         libtelepathy-qt5-farstream0 (= ${binary:Version}),
+         libtelepathy-farstream-dev,
+         pkg-config (>= 0.21),
+         ${misc:Depends}
+Suggests: libtelepathy-qt5-doc
+Description: Qt 5 Telepathy library (headers and static library)
+ This package contains development files for telepathy-qt5, a Qt-based
+ library for Telepathy components.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.
+
+Package: libtelepathy-qt5-dbg
+Architecture: any
+Multi-Arch: same
+Section: debug
+Priority: extra
+Depends: libtelepathy-qt5-0 (= ${binary:Version}),
+         ${misc:Depends}
+Suggests: libtelepathy-qt5-farstream0 (= ${binary:Version})
+Description: Qt 5 Telepathy library (debug symbols)
+ This package contains support for debugging programs that use telepathy-qt5,
+ a Qt-based library for Telepathy components.
+ .
+ Telepathy is a D-Bus framework for unifying real time communication,
+ including instant messaging, voice calls and video calls. It abstracts
+ differences between protocols to provide a unified interface for
+ applications.

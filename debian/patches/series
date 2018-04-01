@@ -1,0 +1,4 @@
+qtdbus_qt5.6.patch
+disable_broken_tests.patch
+use_static_service_library.patch
+disable_tests_that_need_qt5_on_qt4.patch

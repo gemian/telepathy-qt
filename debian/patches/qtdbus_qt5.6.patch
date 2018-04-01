@@ -1,0 +1,79 @@
+Index: telepathy-qt-0.9.6.1/TelepathyQt/client-registrar.cpp
+===================================================================
+--- telepathy-qt-0.9.6.1.orig/TelepathyQt/client-registrar.cpp
++++ telepathy-qt-0.9.6.1/TelepathyQt/client-registrar.cpp
+@@ -903,8 +903,7 @@ bool ClientRegistrar::registerClient(con
+                 .arg((quintptr) client.data(), 0, 16));
+     }
+ 
+-    if (mPriv->services.contains(busName) ||
+-        !mPriv->bus.registerService(busName)) {
++    if (mPriv->services.contains(busName)) {
+         warning() << "Unable to register client: busName" <<
+             busName << "already registered";
+         return false;
+@@ -950,7 +949,6 @@ bool ClientRegistrar::registerClient(con
+     if (interfaces.isEmpty()) {
+         warning() << "Client does not implement any known interface";
+         // cleanup
+-        mPriv->bus.unregisterService(busName);
+         return false;
+     }
+ 
+@@ -965,10 +963,18 @@ bool ClientRegistrar::registerClient(con
+             objectPath << "already registered";
+         // cleanup
+         delete object;
+-        mPriv->bus.unregisterService(busName);
+         return false;
+     }
+ 
++    if (!mPriv->bus.registerService(busName)) {
++        warning() << "Unable to register service: busName" <<
++            busName << "already registered";
++        mPriv->bus.unregisterObject(objectPath, QDBusConnection::UnregisterTree);
++        delete object;
++        return false;
++    }
++
++
+     if (handler) {
+         handler->setRegistered(true);
+     }
+Index: telepathy-qt-0.9.6.1/TelepathyQt/dbus-service.cpp
+===================================================================
+--- telepathy-qt-0.9.6.1.orig/TelepathyQt/dbus-service.cpp
++++ telepathy-qt-0.9.6.1/TelepathyQt/dbus-service.cpp
+@@ -164,15 +164,6 @@ bool DBusService::registerObject(const Q
+         return true;
+     }
+ 
+-    if (!mPriv->dbusObject->dbusConnection().registerService(busName)) {
+-        error->set(TP_QT_ERROR_INVALID_ARGUMENT,
+-                QString(QLatin1String("Name %1 already in use by another process"))
+-                    .arg(busName));
+-        warning() << "Unable to register service" << busName <<
+-            "- name already registered by another process";
+-        return false;
+-    }
+-
+     if (!mPriv->dbusObject->dbusConnection().registerObject(objectPath, mPriv->dbusObject)) {
+         error->set(TP_QT_ERROR_INVALID_ARGUMENT,
+                 QString(QLatin1String("Object at path %1 already registered"))
+@@ -182,6 +173,16 @@ bool DBusService::registerObject(const Q
+         return false;
+     }
+ 
++    if (!mPriv->dbusObject->dbusConnection().registerService(busName)) {
++        mPriv->dbusObject->dbusConnection().unregisterObject(objectPath);
++        error->set(TP_QT_ERROR_INVALID_ARGUMENT,
++                QString(QLatin1String("Name %1 already in use by another process"))
++                    .arg(busName));
++        warning() << "Unable to register service" << busName <<
++            "- name already registered by another process";
++        return false;
++    }
++
+     debug() << "Registered object" << objectPath << "at bus name" << busName;
+ 
+     mPriv->busName = busName;

@@ -1,0 +1,58 @@
+Author: Diane Trout <diane@ghic.org>
+Description: Improve Doxygen generated documentation.
+ - Changes to doxygen-header.html
+   - It didn't include the javascript necessary to make expand and collapse work.
+   - Include noemailcollection from kde.org's documentation
+   - add stylesheets.
+ - allow specifying the Qt documentation target as QT_DOC_BASE
+   it defaults to whereever the qt tags file is but you can
+   override it to point at the html docs with 
+   -DQT_DOC_BASE=http://qt-project.org/docs/qt-4.8/
+--- a/doxygen-header.html
++++ b/doxygen-header.html
+@@ -5,6 +5,12 @@
+ <head>
+   <title>$title</title>
+   <link href="doxygen.css" rel="stylesheet" type="text/css" />
++  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
++  <meta name="no-email-collection" content="http://www.unspam.com/noemailcollection" />
++  <script type="text/javascript" src="jquery.js"></script>
++  <script type="text/javascript" src="dynsections.js"></script>
++  <link rel="stylesheet" type="text/css" href="doxygen.css" />
++  <link rel="stylesheet" type="text/css" href="tabs.css" />
+ </head>
+ <body>
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+--- a/doxygen.cfg.in
++++ b/doxygen.cfg.in
+@@ -131,7 +131,7 @@
+ # definition is used. Otherwise one should specify the include paths that 
+ # are normally passed to the compiler using the -I flag.
+ 
+-STRIP_FROM_INC_PATH    = $abs_top_srcdir} ${abs_top_builddir}
++STRIP_FROM_INC_PATH    = ${abs_top_srcdir} ${abs_top_builddir}
+ 
+ # If the SHORT_NAMES tag is set to YES, doxygen will generate much shorter 
+ # (but less readable) file names. This can be useful is your file systems 
+@@ -1212,7 +1212,7 @@
+ # FIXME: for some reason, doxygen doesn't seem to emit a doxygen= attribute at all
+ # in the <a> element if there is no location, in which case there is nothing for
+ # installdox to rewrite.
+-TAGFILES               = ${QT_TAGS_FILE}=/you/forgot/to/run/installdox
++TAGFILES               = ${QT_TAGS_FILE}=${QT_DOC_BASE}
+ 
+ # When a file name is specified after GENERATE_TAGFILE, doxygen will create 
+ # a tag file that is based on the input files it reads.
+--- a/cmake/modules/Doxygen.cmake
++++ b/cmake/modules/Doxygen.cmake
+@@ -9,7 +9,9 @@
+     include(FindPackageHandleStandardArgs)
+     find_package_handle_standard_args(QHELPGENERATOR DEFAULT_MSG QHELPGENERATOR_EXECUTABLE)
+ 
+-    set(QT_TAGS_FILE     ${QT_DOC_DIR}/html/qt.tags)
++    set(QT_HTML_DIR      ${QT_DOC_DIR}/html)
++    set(QT_TAGS_FILE     ${QT_HTML_DIR}/qt.tags)
++    set(QT_DOC_BASE      ${QT_HTML_DIR} CACHE STRING "Set base directory or url for browsing Qt documentation")
+     if(EXISTS ${QT_TAGS_FILE})
+         find_package(Perl)
+ 

@@ -1,0 +1,43 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ telepathy-qt (0.9.6.1-8ubuntu1~vivid) vivid; urgency=medium
+ .
+   * Fix one more case or service and object registration when using Qt >= 5.6.0
+Author: Gustavo Pichorim Boiko <gustavo.boiko@canonical.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- telepathy-qt-0.9.6.1.orig/TelepathyQt/base-connection.cpp
++++ telepathy-qt-0.9.6.1/TelepathyQt/base-connection.cpp
+@@ -821,6 +821,7 @@ void BaseConnectionRequestsInterface::Ad
+         context->setFinishedWithError(error.name(), error.message());
+         return;
+     }
++    qDebug() << "BLABLA createChannel context finished";
+     context->setFinished(channel, details);
+ }
+ 
+@@ -886,6 +887,7 @@ Tp::ChannelDetailsList BaseConnectionReq
+ 
+ void BaseConnectionRequestsInterface::newChannels(const Tp::ChannelDetailsList &channels)
+ {
++    qDebug() << "BLABLA calling new channels";
+     QMetaObject::invokeMethod(mPriv->adaptee,"newChannels", Q_ARG(Tp::ChannelDetailsList,channels)); //Can replace by a direct call in Qt5
+ }
+ 

@@ -1,0 +1,17 @@
+Author: Diane Trout <diane@ghic.org>
+Description: A temporary work around for linking the
+ static library into a shared library. Upstream is
+ going to make this a static library next release.
+Bug: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=801817
+--- a/TelepathyQt/CMakeLists.txt
++++ b/TelepathyQt/CMakeLists.txt
+@@ -953,6 +953,9 @@
+     #endif (ENABLE_COMPILER_COVERAGE)
+     # lets build a static only library until we have a stable API/ABI
+     add_library(telepathy-qt${QT_VERSION_MAJOR}-service STATIC ${telepathy_qt_service_SRCS})
++    add_dependencies(telepathy-qt${QT_VERSION_MAJOR}-service all-generated-sources)
++    set_target_properties(telepathy-qt${QT_VERSION_MAJOR}-service PROPERTIES
++                          POSITION_INDEPENDENT_CODE ON)
+ 
+     # generate service moc files
+     foreach(moc_src ${telepathy_qt_service_MOC_SRCS})

@@ -1,0 +1,15 @@
+# SymbolsHelper-Confirmed: 0.0.9.5 amd64
+libtelepathy-qt5-farstream.so.0 libtelepathy-qt5-farstream0 #MINVER#
+ _ZN2Tp9Farstream13createChannelERKNS_9SharedPtrINS_11CallChannelEEE@Base 0.0.9.5
+ _ZN2Tp9Farstream14PendingChannel11qt_metacallEN11QMetaObject4CallEiPPv@Base 0.0.9.5
+ _ZN2Tp9Farstream14PendingChannel11qt_metacastEPKc@Base 0.0.9.5
+ _ZN2Tp9Farstream14PendingChannel16staticMetaObjectE@Base 0.0.9.5
+ _ZN2Tp9Farstream14PendingChannelD0Ev@Base 0.0.9.5
+ _ZN2Tp9Farstream14PendingChannelD1Ev@Base 0.0.9.5
+ _ZN2Tp9Farstream14PendingChannelD2Ev@Base 0.0.9.5
+ _ZNK2Tp9Farstream14PendingChannel10metaObjectEv@Base 0.0.9.5
+ _ZNK2Tp9Farstream14PendingChannel11callChannelEv@Base 0.0.9.5
+ _ZNK2Tp9Farstream14PendingChannel9tfChannelEv@Base 0.0.9.5
+ _ZTIN2Tp9Farstream14PendingChannelE@Base 0.0.9.5
+ _ZTSN2Tp9Farstream14PendingChannelE@Base 0.0.9.5
+ _ZTVN2Tp9Farstream14PendingChannelE@Base 0.0.9.5

@@ -1,0 +1,5 @@
+usr/lib/*/libtelepathy-qt5*.so
+usr/lib/*/libtelepathy-qt5-service.a
+usr/lib/*/pkgconfig/TelepathyQt5*.pc
+usr/lib/*/cmake/TelepathyQt5*
+usr/include/telepathy-qt5
