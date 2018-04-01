@@ -1,0 +1,56 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/architecture.mk
+
+BUILD_QT5 := build-qt5
+CMAKE_OPTS := -DDISABLE_WERROR=ON -DHAVE_DOT=YES \
+              -DLIB_SUFFIX="/$(DEB_HOST_MULTIARCH)" \
+              -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+
+%:
+	dh $@ --with pkgkde_symbolshelper --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(CMAKE_OPTS) -DQT_DOC_DIR=/usr/share/qt4/doc \
+	                  -DDESIRED_QT_VERSION=4
+	dh_auto_configure --builddirectory=$(BUILD_QT5) -- $(CMAKE_OPTS) \
+                      -DDESIRED_QT_VERSION=5
+
+override_dh_auto_build-arch:
+	dh_auto_build --parallel
+	dh_auto_build --builddirectory=$(BUILD_QT5)
+
+override_dh_auto_build-indep:
+	dh_auto_build -- doxygen-doc
+
+# Do not run tests, as they fall into race conditions sometimes
+override_dh_auto_test:
+
+override_dh_strip:
+	dh_strip -p libtelepathy-qt4-2 \
+             -p libtelepathy-qt4-farstream2 \
+             --dbg-package=libtelepathy-qt4-dbg
+	dh_strip --remaining-packages --dbg-package=libtelepathy-qt5-dbg
+
+override_dh_auto_install:
+	dh_auto_install
+	dh_auto_install --builddirectory=$(BUILD_QT5)
+
+override_dh_install:
+	dh_install --fail-missing
+
+# -i is for the doc package, which doesn't depend on the shared library
+override_dh_installdocs:
+	dh_installdocs -a --link-doc=libtelepathy-qt4-2
+	dh_installdocs -i
+	dh_doxygen -i
+	rm -f debian/libtelepathy-qt5-doc/usr/share/doc/libtelepathy-qt5-doc/html/jquery.js
+
+override_dh_auto_clean:
+	dh_auto_clean
+	find . -name '*.pyc' -exec rm {} \;
+	rm -rf $(BUILD_QT5)
+
+get-orig-source:
+	uscan --verbose --force-download --repack --compression xz

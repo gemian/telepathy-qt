@@ -1,0 +1,14 @@
+Author: Niels Ole Salscheider <niels_ole@salscheider-online.de>
+Commit: https://cgit.freedesktop.org/cgit/?url=telepathy/telepathy-qt/commit/&id=2a460afdbd0cb39d8dcecaf6cea5ce9ce7d3216b
+Description: _DEFAULT_SOURCE is now required
+--- a/cmake/modules/TelepathyDefaults.cmake
++++ b/cmake/modules/TelepathyDefaults.cmake
+@@ -108,7 +108,7 @@
+     endif(${NOT_RELEASE} EQUAL 1)
+ 
+     if(CMAKE_SYSTEM_NAME MATCHES Linux)
+-        add_definitions(-D_BSD_SOURCE)
++        add_definitions(-D_BSD_SOURCE -D_DEFAULT_SOURCE)
+     endif(CMAKE_SYSTEM_NAME MATCHES Linux)
+ 
+     # Compiler coverage

@@ -1,0 +1,10 @@
+improve-doxygen-build.patch
+update-doxygen.patch
+gstreamer-1.5.patch
+force-service-pic.patch
+fix-deprecated-bsd-source.patch
+fix-failing-test.patch
+qtdbus_qt5.6.patch
+disable_broken_tests.patch
+use_static_service_library.patch
+disable_tests_that_need_qt5_on_qt4.patch
