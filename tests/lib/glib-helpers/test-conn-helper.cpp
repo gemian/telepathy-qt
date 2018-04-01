@@ -174,7 +174,7 @@ bool TestConnHelper::disconnect()
 QList<Tp::ContactPtr> TestConnHelper::contacts(const QStringList &ids,
         const Tp::Features &features)
 {
-    mLoop->processEvents();
+    while (mLoop->processEvents());
 
     QList<Tp::ContactPtr> ret;
     Tp::PendingContacts *pc = mClient->contactManager()->contactsForIdentifiers(ids, features);

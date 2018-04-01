@@ -169,13 +169,13 @@ void TestConferenceChan::testConference()
     Q_FOREACH (const ChannelPtr &channel, mChan->conferenceInitialChannels()) {
         objectPaths << channel->objectPath();
     }
-    QCOMPARE(expectedObjectPaths, objectPaths);
+    QCOMPARE(expectedObjectPaths.toSet(), objectPaths.toSet());
 
     objectPaths.clear();
     Q_FOREACH (const ChannelPtr &channel, mChan->conferenceChannels()) {
         objectPaths << channel->objectPath();
     }
-    QCOMPARE(expectedObjectPaths, objectPaths);
+    QCOMPARE(expectedObjectPaths.toSet(), objectPaths.toSet());
 
     /*
     // TODO - Properly check for initial invitee contacts if/when a test CM supports it
@@ -221,7 +221,7 @@ void TestConferenceChan::testConference()
     Q_FOREACH (const ChannelPtr &channel, mChan->conferenceChannels()) {
         objectPaths << channel->objectPath();
     }
-    QCOMPARE(expectedObjectPaths, objectPaths);
+    QCOMPARE(expectedObjectPaths.toSet(), objectPaths.toSet());
 
     QVERIFY(connect(mChan.data(),
                     SIGNAL(conferenceChannelRemoved(const Tp::ChannelPtr &,
@@ -246,7 +246,7 @@ void TestConferenceChan::testConference()
     Q_FOREACH (const ChannelPtr &channel, mChan->conferenceChannels()) {
         objectPaths << channel->objectPath();
     }
-    QCOMPARE(expectedObjectPaths, objectPaths);
+    QCOMPARE(expectedObjectPaths.toSet(), objectPaths.toSet());
 
     mChan.reset();
     mChannelMerged.reset();

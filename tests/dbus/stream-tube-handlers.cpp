@@ -1806,18 +1806,18 @@ void TestStreamTubeHandlers::testClientConnMonitoring()
     QVERIFY(second.isValid());
     QCOMPARE(second.state(), QAbstractSocket::ConnectedState);
 
-    QTcpSocket third;
-    third.connectToHost(mClientTcpAcceptAddr, mClientTcpAcceptPort);
-    third.waitForConnected();
-    QVERIFY(third.isValid());
-    QCOMPARE(third.state(), QAbstractSocket::ConnectedState);
-
     // We should get two newConnection signals now and connections() should include these
     // connections
     QCOMPARE(mLoop->exec(), 0);
     QCOMPARE(mNewClientConnectionTube, mOfferedTube);
     QCOMPARE(client->connections().size(), 1);
     uint secondId = mNewClientConnectionId;
+
+    QTcpSocket third;
+    third.connectToHost(mClientTcpAcceptAddr, mClientTcpAcceptPort);
+    third.waitForConnected();
+    QVERIFY(third.isValid());
+    QCOMPARE(third.state(), QAbstractSocket::ConnectedState);
 
     QCOMPARE(mLoop->exec(), 0);
     QCOMPARE(mNewClientConnectionTube, mOfferedTube);
